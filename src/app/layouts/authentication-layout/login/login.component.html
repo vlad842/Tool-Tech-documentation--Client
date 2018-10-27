@@ -1,0 +1,34 @@
+<div class="loginBox">
+    <!-- Box Header -->
+    <div class=loginBox-header>
+      <h2>Login</h2>
+    </div>
+  
+    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+  
+      <!-- Inputs -->
+  
+      <!-- Email input -->
+      <mat-form-field>
+        <input matInput placeholder="Enter your email" [formControl]="email" required>
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-error *ngIf="email.invalid">{{getErrorMessage(email)}}</mat-error>
+      </mat-form-field>
+  
+      <!-- Password input -->
+      <mat-form-field>
+        <input matInput placeholder="Enter your password" [formControl]="password" [type]="password_hide ? 'password' : 'text'"
+          required>
+        <mat-icon matSuffix (click)="password_hide = !password_hide">{{password_hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <mat-error *ngIf="password.invalid">{{getErrorMessage(password)}}</mat-error>
+      </mat-form-field>
+  
+
+  
+      <div class="loginBox-footer">
+        <button class="submitButton btn btn-success" type="submit">Login</button>
+      </div>
+      <div [hidden]="!submitError.exist" class="submit-error">{{submitError.message}}</div>
+  
+    </form>
+  </div>

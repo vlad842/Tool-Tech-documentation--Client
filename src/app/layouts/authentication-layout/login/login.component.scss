@@ -1,0 +1,28 @@
+
+    .loginBox{
+        text-align: center;
+
+        h2{
+            text-align: center;
+        }
+        
+        mat-form-field{
+            max-width: 320px;
+            margin:0 auto;
+        }
+
+        &-header{
+            margin-bottom: 50px;
+        }
+
+        &-footer{
+            width: 100%;
+            margin-top: 50px;
+            text-align:center;
+
+        }
+
+        .submit-error{
+            color: red;
+        }
+    }

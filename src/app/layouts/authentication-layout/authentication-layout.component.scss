@@ -1,0 +1,23 @@
+.authentication-layout{
+    background: url(../../../assets/img/backgrounds/authentication-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    box-shadow: inset 0 0 0 1000px rgba(0,0,0,.8);
+    display: flex;
+    align-items: center;
+
+
+    .row{
+        width:100%;
+        display: flex;
+        justify-content: center;
+        .authentication-container{
+            background-color: rgba(255,255,255,0.6);
+            border-radius: 5px;
+            padding:30px;
+        }
+    }
+
+}

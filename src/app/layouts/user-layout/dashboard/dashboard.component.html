@@ -1,0 +1,16 @@
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let record of records">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{record.serial_number}} / {{record.chamber_num}} - {{record.chamber_kind}} 
+        </mat-panel-title>
+        <mat-panel-description>
+          {{record.user_name}} / {{record.date}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <textarea class="descriptionTextArea" rows="9" readonly>{{record.description}}</textarea>
+      
+
+    </mat-expansion-panel>
+  </mat-accordion>

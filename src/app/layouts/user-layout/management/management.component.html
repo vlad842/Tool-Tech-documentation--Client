@@ -1,0 +1,106 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header card-header-icon card-header-rose">
+        <div class="card-icon">
+          <mat-icon>add_circle_outline</mat-icon>
+        </div>
+        <h4 class="card-title">Add Tool</h4>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="onSubmitTool()" [formGroup]="addToolForm">
+
+          <!-- Inputs -->
+
+          <!-- Email input -->
+          <mat-form-field>
+            <input matInput placeholder="Tool Serial Number" [formControl]="toolSerialNumber" required>
+            <mat-icon matSuffix></mat-icon>
+            <mat-error *ngIf="toolSerialNumber.invalid">this field is required!</mat-error>
+          </mat-form-field>
+          <div class="row">
+            <div class="col-md-12">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              PM1
+            </div>
+            <div class="col-md-8">
+              <mat-form-field class="chambers-dropdown">
+                <mat-select placeholder="Chamber" [(value)]="selectedChamber1">
+                  <mat-option *ngFor="let chamber of chambers" [value]="chamber">
+                    {{chamber}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              PM2
+            </div>
+            <div class="col-md-8">
+              <mat-form-field class="chambers-dropdown">
+                <mat-select placeholder="Chamber" [(value)]="selectedChamber2">
+                  <mat-option *ngFor="let chamber of chambers" [value]="chamber">
+                    {{chamber}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              PM3
+            </div>
+            <div class="col-md-8">
+              <mat-form-field class="chambers-dropdown">
+                <mat-select placeholder="Chamber" [(value)]="selectedChamber3">
+                  <mat-option *ngFor="let chamber of chambers" [value]="chamber">
+                    {{chamber}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              PM4
+            </div>
+            <div class="col-md-8">
+              <mat-form-field class="chambers-dropdown">
+                <mat-select placeholder="Chamber" [(value)]="selectedChamber4">
+                  <mat-option *ngFor="let chamber of chambers" [value]="chamber">
+                    {{chamber}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              PM5
+            </div>
+            <div class="col-md-8">
+              <mat-form-field class="chambers-dropdown">
+                <mat-select placeholder="Chamber" [(value)]="selectedChamber5">
+                  <mat-option *ngFor="let chamber of chambers" [value]="chamber">
+                    {{chamber}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          
+          <button class="submitButton btn btn-rose" type="submit">Add</button>
+          <div [hidden]="!submitToolError.exist" class="submit-error">{{submitToolError.message}}</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
