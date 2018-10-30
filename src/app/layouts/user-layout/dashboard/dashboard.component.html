@@ -1,16 +1,42 @@
+<div class="row">
+  <div class="col-md-4">
+    <mat-form-field class="tools-dropdown">
+      <mat-select (selectionChange)="toolChanged($event)" placeholder="Tool" [(value)]="selectedTool">
+        <mat-option value="allTools">All tools</mat-option>
+        <mat-option *ngFor="let tool of tools" [value]="tool._id">
+          {{tool.serialNumber}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+
+  <div class="col-md-4">
+    <mat-form-field class="chambers-dropdown">
+      <mat-select (selectionChange)="chamberChanged($event)" placeholder="Chamber" [(value)]="selectedChamber">
+        <mat-option value="allChambers">All Chambers</mat-option>
+        <mat-option *ngFor="let chamber of chambers; let i = index;" [value]="i + 1">
+          {{chamber}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+
 <mat-accordion>
-    <mat-expansion-panel *ngFor="let record of records">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{record.serial_number}} / {{record.chamber_num}} - {{record.chamber_kind}} 
-        </mat-panel-title>
-        <mat-panel-description>
-          {{record.user_name}} / {{record.date}}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
+  <mat-expansion-panel *ngFor="let record of records">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{record.serial_number}} / {{record.chamber_num}} - {{record.chamber_kind}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{record.user_name}} / {{record.date}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
 
-      <textarea class="descriptionTextArea" rows="9" readonly>{{record.description}}</textarea>
-      
+    <textarea class="descriptionTextArea" rows="9" readonly>{{record.description}}</textarea>
 
-    </mat-expansion-panel>
-  </mat-accordion>
+
+  </mat-expansion-panel>
+</mat-accordion>

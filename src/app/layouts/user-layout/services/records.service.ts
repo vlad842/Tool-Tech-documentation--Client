@@ -13,24 +13,37 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class RecordesService {
 
-    private readonly apiUrl:string = environment.api_url;
+    private readonly apiUrl: string = environment.api_url;
 
 
     constructor(private http: HttpClient) { }
 
-    addRecord(tool_id,chamber_num,description){
-        return this.http.post<any>(`${this.apiUrl}/records/addRecord`,{tool_id,chamber_num,description})
+    addRecord(tool_id, chamber_num, description) {
+        return this.http.post<any>(`${this.apiUrl}/records/addRecord`, { tool_id, chamber_num, description })
             .pipe(map(data => {
                 return data;
             }));
     }
 
-    getAllRecordes(){
-        return this.http.get<any>(`${this.apiUrl}/records`)
+    getRecords(tool_id?: string, chamber_num?: string) {
+        let url = `${this.apiUrl}/records`;
+        if (tool_id) {
+            url = url + `/${tool_id}`;
+            if (chamber_num) {
+                url = url + `/${chamber_num}`;
+
+
+            }
+        }
+
+        console.log("_____URL_____",url);
+        return this.http.get<any>(url)
             .pipe(map(data => {
                 return data;
             }));
     }
+
+
 
     // --- Functions ---
     /*login(email: string, password: string) {

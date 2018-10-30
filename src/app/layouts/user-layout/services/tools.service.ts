@@ -36,6 +36,9 @@ export class ToolsService {
     }
 
     addTool(serialNumber:string,chambers:any[]){
+        chambers.forEach((chamber) => {
+            chamber.index = chamber.serialNumber - 1;
+        });
         return this.http.post<any>(`${this.apiUrl}/tools/addTool`,{serialNumber,chambers})
         .pipe(map(data => {
             
