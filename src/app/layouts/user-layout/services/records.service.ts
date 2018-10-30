@@ -36,7 +36,6 @@ export class RecordesService {
             }
         }
 
-        console.log("_____URL_____",url);
         return this.http.get<any>(url)
             .pipe(map(data => {
                 return data;

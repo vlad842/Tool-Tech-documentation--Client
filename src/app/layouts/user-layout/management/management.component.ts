@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToolsService } from '../services/tools.service';
 import { first } from 'rxjs/operators';
+import { UserService } from 'app/layouts/authentication-layout/user.service';
 
 @Component({
   selector: 'app-management',
@@ -19,14 +20,38 @@ export class ManagementComponent implements OnInit {
   selectedChamber5:string;
   submitToolError: {exist:boolean,message:string};
 
+  addUserForm :  FormGroup;
+  email:        FormControl;
+  password: FormControl;
+  fullName: FormControl;
+  submitUserError: {exist:boolean,message:string};
+
+
   chambers = [];
-  constructor(private toolsService:ToolsService) { }
+  constructor(private toolsService:ToolsService,
+              private userService:UserService) { }
 
   ngOnInit() {
-    this.setChambersForm();
+    this.setAddToolssForm();
+    this.setAddUsersForm();
   }
 
-  private setChambersForm(){
+  private setAddUsersForm(){
+    this.submitUserError={exist:false,message:""};
+    this.email = new FormControl('',[Validators.email]);
+    this.fullName = new FormControl('',[]);
+    this.password = new FormControl('',[]);
+
+    this.addUserForm = new FormGroup(
+      {email: this.email, fullName: this.fullName,password: this.password},
+      [Validators.required]
+      );
+
+  }
+
+
+
+  private setAddToolssForm(){
     this.submitToolError={exist:false,message:""};
     this.toolSerialNumber = new FormControl('',[]);
     this.addToolForm = new FormGroup(
@@ -83,18 +108,44 @@ export class ManagementComponent implements OnInit {
   }
 
   private onSuccessfulToolAdd(data){
-    this.submitToolError.exist=false;
-    this.submitToolError.message = '';
-    this.toolSerialNumber.markAsUntouched();
-    this.toolSerialNumber.reset();
-    this.selectedChamber1 = this.selectedChamber2 = this.selectedChamber3 = this.selectedChamber4 =this.selectedChamber5 = this.chambers[0];
-
-
+    this.addToolForm.reset();
+    alert("Tool added successfuly");
   }
 
   private onUnsuccessfulToolAdd(error){
+    console.log(error.error);
     this.submitToolError.exist=true;
-    this.submitToolError.message=error.error.message;
+    this.submitToolError.message=error.error;
+  }
+
+  onSubmitUser(){
+
+    if(this.addUserForm.valid)
+    {
+      this.userService.signup(this.fullName.value,this.email.value,this.password.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log("data",data);
+          this.onSuccessfulUserAdd(data);
+        },
+        error => {
+          this.onUnsuccessfulUserAdd(error)
+        });;
+    }
+  }
+
+  private onSuccessfulUserAdd(data){
+
+    alert("User added successfuly");
+    this.addUserForm.reset();
+
+  }
+
+  private onUnsuccessfulUserAdd(error){
+    
+    this.submitUserError.exist=true;
+    this.submitUserError.message=error.error;
   }
 
 }

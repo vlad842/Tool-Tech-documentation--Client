@@ -103,4 +103,44 @@
       </div>
     </div>
   </div>
+
+  <div class="col-md-3">
+      <div class="card">
+        <div class="card-header card-header-icon card-header-rose">
+          <div class="card-icon">
+            <mat-icon>person_add</mat-icon>
+          </div>
+          <h4 class="card-title">Add User</h4>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="onSubmitUser()" [formGroup]="addUserForm">
+  
+            <!-- Inputs -->
+  
+            <mat-form-field>
+                <input matInput placeholder="Full Name" [formControl]="fullName" required>
+                <mat-icon matSuffix></mat-icon>
+                <mat-error *ngIf="fullName.invalid">this field is required!</mat-error>
+            </mat-form-field>
+  
+
+            <mat-form-field>
+              <input matInput placeholder="Email" [formControl]="email" required>
+              <mat-icon matSuffix></mat-icon>
+              <mat-error *ngIf="email.invalid">this field is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Password" [formControl]="password" required>
+                <mat-icon matSuffix></mat-icon>
+                <mat-error *ngIf="password.invalid">this field is required!</mat-error>
+            </mat-form-field>
+
+            
+            <button class="submitButton btn btn-rose" type="submit">Add</button>
+            <div [hidden]="!submitUserError.exist" class="submit-error">{{submitUserError.message}}</div>
+          </form>
+        </div>
+      </div>
+    </div>
 </div>

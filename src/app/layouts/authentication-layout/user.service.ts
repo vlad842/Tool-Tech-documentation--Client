@@ -47,6 +47,15 @@ export class UserService {
             }));
     }
 
+    signup(full_name: string, email: string, password: string) {
+        const is_admin = true;
+        return this.http.post<any>(`${this.apiUrl}/users/signup`, { full_name, email, password, is_admin })
+            .pipe(map(data => {
+                
+                return data;
+            }));
+    }
+
     logout() {
 
         // remove user from local storage to log user out

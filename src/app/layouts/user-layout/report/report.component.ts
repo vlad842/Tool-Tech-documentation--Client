@@ -62,6 +62,9 @@ export class ReportComponent implements OnInit {
     .pipe(first())
       .subscribe(
         data => {
+          alert("Report added successfuly");
+          this.reportForm.reset();
+
         },
         error => {
           console.log("ERROR",error);

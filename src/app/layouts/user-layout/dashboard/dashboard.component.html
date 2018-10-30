@@ -2,7 +2,7 @@
   <div class="col-md-4">
     <mat-form-field class="tools-dropdown">
       <mat-select (selectionChange)="toolChanged($event)" placeholder="Tool" [(value)]="selectedTool">
-        <mat-option value="allTools">All tools</mat-option>
+        <mat-option value="allTools">All Tools</mat-option>
         <mat-option *ngFor="let tool of tools" [value]="tool._id">
           {{tool.serialNumber}}
         </mat-option>

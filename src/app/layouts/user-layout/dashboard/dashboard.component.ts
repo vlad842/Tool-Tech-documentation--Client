@@ -67,14 +67,7 @@ export class DashboardComponent implements OnInit {
     console.log("tool_id",tool_id)
     if(tool_id == 'allTools')
     {
-      this.toolsService.getAllChambersKindes()
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.chambers=data;
-        },
-        error => {
-        });
+      this.chambers=[];
     }
     else
     {
