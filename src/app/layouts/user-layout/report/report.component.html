@@ -1,37 +1,62 @@
 <form (ngSubmit)="onSubmitReport()" [formGroup]="reportForm">
   <div class="row">
-    <div class="col-md-4">
-      <mat-form-field>
-        <mat-select placeholder="Tool" (selectionChange)="toolChanged($event)" [(value)]="selectedTool">
-          <mat-option *ngFor="let tool of tools" [value]="tool.serialNumber">
-            {{tool.serialNumber}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div class="col-md-8">
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <mat-form-field>
+            <mat-select placeholder="Tool" (selectionChange)="toolChanged($event)" [(value)]="selectedTool">
+              <mat-option *ngFor="let tool of tools" [value]="tool.serialNumber">
+                {{tool.serialNumber}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="chambers-dropdown">
+            <mat-select placeholder="Chamber" [(value)]="selectedChamber">
+              <mat-option *ngFor="let chamber of chambers;" [value]="chamber.serialNumber">
+                {{chamber.serialNumber}} - {{chamber.kind}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+
+      </div>
+
     </div>
 
     <div class="col-md-4">
-      <mat-form-field class="chambers-dropdown">
-        <mat-select placeholder="Chamber" [(value)]="selectedChamber">
-          <mat-option *ngFor="let chamber of chambers;" [value]="chamber.serialNumber">
-            {{chamber.serialNumber}} - {{chamber.kind}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="row">
+        <div class="col-md-12">
+
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-8">
-      <mat-form-field>
-        <textarea [formControl]="reportTextArea" class="report-textarea" matInput placeholder="Report"></textarea>
-      </mat-form-field>
+      <div class="col-md-8">
+        <mat-form-field>
+            <textarea [formControl]="reportTextArea" class="report-textarea" matInput placeholder="Report"></textarea>
+          </mat-form-field>
+    </div>
+    <div class="optionsBox col-md-4">
+        <mat-button-toggle-group appearance="standard" vertical="true" name="fontStyle" aria-label="Font Style">
+            <mat-button-toggle value="failure">Failure</mat-button-toggle>
+            <mat-button-toggle value="scheduled maintenance">Scheduled maintenance</mat-button-toggle>
+            <mat-button-toggle value="Fixed">fixed</mat-button-toggle>
+            <mat-button-toggle value="in progress">In progress</mat-button-toggle>
+          </mat-button-toggle-group>
     </div>
   </div>
+
   <div class="row">
-    <div class="col-md-8">
       <button class="submitButton btn btn-success" type="submit">Submit</button>
-    </div>
   </div>
 
 </form>

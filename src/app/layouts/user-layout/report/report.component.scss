@@ -7,3 +7,17 @@
     box-shadow: 0 4px 20px 0px rgba(0, 0, 0, .14),
                 0 7px 10px -5px rgba(0,0,0, 0.4)
 }
+
+.optionsBox{
+    padding-top:20px;
+}
+
+.mat-button-toggle{
+
+    color:black;
+    background:white;
+    transition: background 0.2s ease-out;
+    &-checked{
+        background:rgba(240,0,0,0.3);
+    }
+}

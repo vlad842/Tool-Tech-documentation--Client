@@ -14,7 +14,8 @@ import {
   MatTooltipModule,
   MatIconModule,
   MatListModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatButtonToggleModule
 } from '@angular/material';
 import { ManagementComponent } from './management/management.component';
 @NgModule({
@@ -30,7 +31,8 @@ import { ManagementComponent } from './management/management.component';
     MatTooltipModule,
     MatIconModule,
     MatListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatButtonToggleModule
   ],
   declarations: [
     DashboardComponent,
