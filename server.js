@@ -5,7 +5,7 @@ const app_name = 'material-dashboard-angular';
 const app = express();
 
 // Serve only the static files form the dist directory
-app.use(express.static(`./dist/${app_name}`));
+app.use(express.static(`./dist`));
 
 app.get('/*', function(req,res) {
     
