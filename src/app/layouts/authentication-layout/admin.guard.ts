@@ -11,7 +11,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
  * */
 
 @Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate, CanActivateChild {
+export class AdminGuard implements CanActivate, CanActivateChild {
 
 
     readonly jwtHelper = new JwtHelperService();
@@ -19,14 +19,14 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-         if (this.isAuthenticated()) {
+         if (this.isAdmin()) {
 
              // logged in so return true
              return true;
          }
 
          // not logged in so redirect to login page with the return url
-         this.router.navigate(['/auth/login'], { queryParams: { returnUrl: state.url }});
+         this.router.navigate(['/dashboard']);
          return false;
 
     }
@@ -36,10 +36,11 @@ export class AuthGuard implements CanActivate, CanActivateChild {
         return this.canActivate(route,state);
      }
 
-    public isAuthenticated(): boolean {
+    public isAdmin(): boolean {
 
         const token = localStorage.getItem('token');
-        // Check whether the token is expired and return
-        return token != null && !this.jwtHelper.isTokenExpired(token);
+        const decode_token = this.jwtHelper.decodeToken(token);
+
+        return decode_token.isAdmin;
       }
 }

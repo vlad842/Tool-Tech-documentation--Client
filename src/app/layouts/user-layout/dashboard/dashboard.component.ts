@@ -64,7 +64,6 @@ export class DashboardComponent implements OnInit {
 
   private fillChambers(tool_id?:string)
   {
-    console.log("tool_id",tool_id)
     if(tool_id == 'allTools')
     {
       this.chambers=[];

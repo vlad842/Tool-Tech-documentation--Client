@@ -34,7 +34,6 @@ export class ReportComponent implements OnInit {
     .pipe(first())
     .subscribe(
       data => {
-        console.log(data);
         this.tools=data;
         if(this.tools.length)
         {
@@ -50,7 +49,6 @@ export class ReportComponent implements OnInit {
   toolChanged(event)
   {
     let tool = this.tools.find((elem) => elem.serialNumber === event.value);
-    console.log(tool);
     this.chambers = tool.chambers;
     this.selectedChamber = this.chambers[0].serialNumber;
 
@@ -67,11 +65,9 @@ export class ReportComponent implements OnInit {
 
         },
         error => {
+          //TODO: ui support for the error.
           console.log("ERROR",error);
         });
-
-
-
   }
 
 }

@@ -19,7 +19,7 @@ export class UserService {
     private readonly localsorage_title_email = 'email';
     private readonly localsorage_title_token = 'token';
 
-    private usersDevices:object[];
+    public isAdmin = false;
 
     constructor(private http: HttpClient) { }
 
@@ -34,13 +34,12 @@ export class UserService {
     login(email: string, password: string) {
         return this.http.post<any>(`${this.apiUrl}/auth/login`, { email, password })
             .pipe(map(data => {
-
                 // login successful if there's a jwt token in the response
                 if (data && data.token) {
-
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     this.saveToLocalStorage(this.localsorage_title_token,data.token);
                     this.saveToLocalStorage(this.localsorage_title_email,email);
+                    this.isAdmin = data.isAdmin;
                 }
                 
                 return data;

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'app/layouts/authentication-layout/user.service';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -6,11 +7,12 @@ declare interface RouteInfo {
     title: string;
     icon: string;
     class: string;
+    permission: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/report', title: 'Report',  icon: 'dashboard', class: '' },
-    { path: '/management', title: 'Management',  icon: 'dashboard', class: '' }
+    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '', permission:"all" },
+    { path: '/report', title: 'Report',  icon: 'dashboard', class: '',permission:"all" },
+    { path: '/management', title: 'Management',  icon: 'dashboard', class: '', permission:"admin"}
 
 ];
 
@@ -22,10 +24,13 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() { }
+  constructor(private userService:UserService) {}
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
+    this.menuItems = ROUTES.filter(menuItem => {
+        return  ((menuItem.permission === "all") ||
+                (menuItem.permission === "admin" && this.userService.isAdmin));
+    });
   }
   isMobileMenu() {
       if ($(window).width() > 991) {
