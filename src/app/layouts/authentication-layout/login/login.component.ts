@@ -81,12 +81,10 @@ export class LoginComponent implements OnInit {
   }
 
   private onSuccessfulLogin(data){
-    console.log("this.returnUrl",this.returnUrl);
     this.router.navigate([this.returnUrl]);
   }
 
   private onUnsuccessfulLogin(error){
-    console.log(error);
     this.submitError.exist=true;
     this.submitError.message=error.error.msg;
   }

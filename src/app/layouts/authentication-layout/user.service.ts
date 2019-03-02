@@ -18,8 +18,7 @@ export class UserService {
     //Foretold local storage property names
     private readonly localsorage_title_email = 'email';
     private readonly localsorage_title_token = 'token';
-
-    public isAdmin = false;
+    private readonly localsorage_title_isAdmin = 'isAdmin';
 
     constructor(private http: HttpClient) { }
 
@@ -39,7 +38,7 @@ export class UserService {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     this.saveToLocalStorage(this.localsorage_title_token,data.token);
                     this.saveToLocalStorage(this.localsorage_title_email,email);
-                    this.isAdmin = data.isAdmin;
+                    this.saveToLocalStorage(this.localsorage_title_isAdmin,data.isAdmin);
                 }
                 
                 return data;
@@ -62,6 +61,11 @@ export class UserService {
         this.removeFromLocalStorage(this.localsorage_title_email);
     }
 
+    isAdmin():boolean{
+        const isAdmin = this.getFromLocalStorage(this.localsorage_title_isAdmin) === 'true';
+        return isAdmin;
+    }
+
 
     // --- Private Functions ---
     private saveToLocalStorage(data_title:string,data)
@@ -74,7 +78,7 @@ export class UserService {
     }
     private getFromLocalStorage(data_title:string)
     {
-        localStorage.getItem(data_title);
+        return localStorage.getItem(data_title);
     }
 
 }

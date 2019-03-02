@@ -33,7 +33,7 @@ import { ErrorInterceptor } from './layouts/authentication-layout/error.intercep
   declarations: [
     AppComponent,
     UserLayoutComponent,
-    AuthenticationLayoutComponent
+    AuthenticationLayoutComponent,
 
   ],
   providers: [

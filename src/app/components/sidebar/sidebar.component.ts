@@ -12,7 +12,8 @@ declare interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '', permission:"all" },
     { path: '/report', title: 'Report',  icon: 'dashboard', class: '',permission:"all" },
-    { path: '/management', title: 'Management',  icon: 'dashboard', class: '', permission:"admin"}
+    { path: '/management/tools', title: 'Tools Management',  icon: 'dashboard', class: '', permission:"admin"},
+    { path: '/management/users', title: 'Users Management',  icon: 'dashboard', class: '', permission:"admin"}
 
 ];
 
@@ -29,7 +30,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => {
         return  ((menuItem.permission === "all") ||
-                (menuItem.permission === "admin" && this.userService.isAdmin));
+                (menuItem.permission === "admin" && this.userService.isAdmin()));
     });
   }
   isMobileMenu() {

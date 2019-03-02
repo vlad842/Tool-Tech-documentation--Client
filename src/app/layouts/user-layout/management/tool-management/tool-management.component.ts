@@ -1,16 +1,22 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ToolsService } from '../services/tools.service';
+import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { UserService } from 'app/layouts/authentication-layout/user.service';
+import { ToolsManagementService } from './tools-management.service';
+import { ToolsService } from '../../services/tools.service';
 
 @Component({
-  selector: 'app-management',
-  templateUrl: './management.component.html',
-  styleUrls: ['./management.component.scss']
+  selector: 'app-tool-management',
+  templateUrl: './tool-management.component.html',
+  styleUrls: ['./tool-management.component.scss']
 })
-export class ManagementComponent implements OnInit {
-  @ViewChild('chambersList') chambersList;
+export class ToolManagementComponent implements OnInit {
+
+  displayedColumns: string[] = ['serial_number','chamber1', 'chamber2','chamber3','chamber4','chamber5','actions'];
+  dataSource = new MatTableDataSource([]);
+  all_tools_data = [];
+  
   addToolForm :  FormGroup;
   toolSerialNumber:        FormControl;
   selectedChamber1:string;
@@ -19,48 +25,40 @@ export class ManagementComponent implements OnInit {
   selectedChamber4:string;
   selectedChamber5:string;
   submitToolError: {exist:boolean,message:string};
-
-  addUserForm :  FormGroup;
-  email:        FormControl;
-  password: FormControl;
-  fullName: FormControl;
-  submitUserError: {exist:boolean,message:string};
-
-
   chambers = [];
 
-
-  constructor(private toolsService:ToolsService,
-              private userService:UserService) { }
+  constructor(private router:Router, private toolsManagmentService:ToolsManagementService) { }
 
   ngOnInit() {
-    this.setAddToolssForm();
-    this.setAddUsersForm();
+    this.setAddToolsForm();
+    this.setAllToolsTable();
   }
 
-  private setAddUsersForm(){
-    this.submitUserError={exist:false,message:""};
-    this.email = new FormControl('',[Validators.email]);
-    this.fullName = new FormControl('',[]);
-    this.password = new FormControl('',[]);
-
-    this.addUserForm = new FormGroup(
-      {email: this.email, fullName: this.fullName,password: this.password},
-      [Validators.required]
-      );
-
+  private setAllToolsTable(){
+    this.toolsManagmentService.getAllTools().subscribe((all_tools)=>{
+      this.all_tools_data = all_tools.map((tool)=>{
+        return {
+          _id:tool._id,
+          serial_number:tool.serialNumber,
+          chamber1:tool.chambers[0].kind,
+          chamber2:tool.chambers[1].kind,
+          chamber3:tool.chambers[2].kind,
+          chamber4:tool.chambers[3].kind,
+          chamber5:tool.chambers[4].kind,
+        }
+      });
+      this.dataSource = new MatTableDataSource(this.all_tools_data);
+    });
   }
 
-
-
-  private setAddToolssForm(){
+  private setAddToolsForm(){
     this.submitToolError={exist:false,message:""};
     this.toolSerialNumber = new FormControl('',[]);
     this.addToolForm = new FormGroup(
       {toolSerialNumber: this.toolSerialNumber},
       [Validators.required]
       );
-    this.toolsService.getAllChambersKindes()
+    this.toolsManagmentService.getAllChambersKindes()
     .pipe(first())
     .subscribe(
       data => {
@@ -95,7 +93,7 @@ export class ManagementComponent implements OnInit {
     //Subbmiting only if form is valid
     if(this.addToolForm.valid)
     {
-      this.toolsService.addTool(serialNumber,chambers_names)
+      this.toolsManagmentService.addTool(serialNumber,chambers_names)
       .pipe(first())
       .subscribe(
         data => {
@@ -110,6 +108,7 @@ export class ManagementComponent implements OnInit {
   private onSuccessfulToolAdd(data){
     this.addToolForm.reset();
     alert("Tool added successfuly");
+    this.setAllToolsTable();
   }
 
   private onUnsuccessfulToolAdd(error){
@@ -117,33 +116,17 @@ export class ManagementComponent implements OnInit {
     this.submitToolError.message=error.error;
   }
 
-  onSubmitUser(){
-
-    if(this.addUserForm.valid)
-    {
-      this.userService.signup(this.fullName.value,this.email.value,this.password.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.onSuccessfulUserAdd(data);
-        },
-        error => {
-          this.onUnsuccessfulUserAdd(error)
-        });;
-    }
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  private onSuccessfulUserAdd(data){
-
-    alert("User added successfuly");
-    this.addUserForm.reset();
-
+  onButtonToolDeleteClick(tool_id:string){
+    this.toolsManagmentService.deleteTool(tool_id).subscribe(data =>{
+      alert("Tool deleted successfully");
+      this.setAllToolsTable();
+    },
+    error =>{
+      alert("cannot delete this Tool");
+    });
   }
-
-  private onUnsuccessfulUserAdd(error){
-    
-    this.submitUserError.exist=true;
-    this.submitUserError.message=error.error;
-  }
-
 }

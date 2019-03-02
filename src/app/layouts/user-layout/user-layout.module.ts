@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserLayoutRoutes } from './user-layout.routing';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReportComponent } from './report/report.component';
-
 import {
   MatButtonModule,
   MatInputModule,
@@ -15,12 +14,16 @@ import {
   MatIconModule,
   MatListModule,
   MatExpansionModule,
-  MatButtonToggleModule
+  MatButtonToggleModule,
+  MatTableModule
 } from '@angular/material';
 import { ManagementComponent } from './management/management.component';
+import { UserManagementComponent } from './management/user-management/user-management.component';
+import { ToolManagementComponent } from './management/tool-management/tool-management.component';
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule,
     RouterModule.forChild(UserLayoutRoutes),
     FormsModule,
     ReactiveFormsModule,
@@ -32,12 +35,22 @@ import { ManagementComponent } from './management/management.component';
     MatIconModule,
     MatListModule,
     MatExpansionModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatTableModule
   ],
   declarations: [
     DashboardComponent,
     ReportComponent,
-    ManagementComponent
+    ManagementComponent,
+    UserManagementComponent,
+    ToolManagementComponent
+  ],
+  exports:[
+    DashboardComponent,
+    ReportComponent,
+    ManagementComponent,
+    UserManagementComponent,
+    ToolManagementComponent
   ]
 })
 
