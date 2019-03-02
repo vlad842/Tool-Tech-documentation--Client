@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { ToolManagementComponent } from './tool-management/tool-management.component';
 import { UserManagementComponent } from './user-management/user-management.component';
-import { BoardManagementComponent } from './board-management/board-management.component';
 
 export const ManagementRoutes: Routes = [
 
