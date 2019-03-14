@@ -31,11 +31,39 @@
         {{record.serial_number}} / {{record.chamber_num}} - {{record.chamber_kind}}
       </mat-panel-title>
       <mat-panel-description>
-        {{record.user_name}} / {{record.date}}
+        {{record.user_name}} / {{record.date | date:'medium' }}
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <textarea class="descriptionTextArea" rows="9" readonly>{{record.description}}</textarea>
+    <textarea class="descriptionTextArea" rows=5>{{record.description}}</textarea>
+
+    <mat-accordion>
+        <button style="position:relative; top:-34px;" (click)="addComment(record._id)" mat-fab color="primary"><mat-icon aria-label="Add comment">add_comment</mat-icon></button>
+
+        <mat-expansion-panel style="position:relative; top:-20px; background-color:#eee;">
+          <mat-expansion-panel-header style="background-color:#eee;">
+            <mat-panel-title style="background-color:#eee;">
+              All Comments ({{record.comments.length}})
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-vertical-stepper style="border-radius: 10px;">
+              <mat-step *ngFor="let comment of record.comments" >
+                <ng-template matStepLabel >
+                  {{comment.user_full_name}} - {{comment.comment_date |  date:'medium' }}
+                </ng-template>
+                <div style="margin-bottom:20px;"> 
+                    {{comment.comment_content}}
+                </div>
+                <mat-chip-list>
+                    <mat-chip [ngStyle]="{ backgroundColor: tag.color }" *ngFor="let tag of comment.tags">{{tag.name}}</mat-chip>
+                </mat-chip-list>
+              </mat-step>
+            </mat-vertical-stepper>
+      
+        </mat-expansion-panel>
+      </mat-accordion>
 
 
   </mat-expansion-panel>

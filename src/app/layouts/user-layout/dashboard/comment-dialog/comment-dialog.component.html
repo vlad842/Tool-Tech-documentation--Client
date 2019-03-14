@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>Add comment</h2>
+
+<mat-dialog-content [formGroup]="form">
+
+  <mat-form-field>
+
+    <mat-chip-list #tagsChipList>
+      <mat-chip *ngFor="let tag of selectedTags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)"
+        [ngStyle]="{ backgroundColor: tag.color }">
+        {{tag.name}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="Add tag" #tagInput [formControl]="tagsFormControl" [matAutocomplete]="auto" [matChipInputFor]="tagsChipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+        {{tag.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field>
+      <textarea [formControl]="commentTextArea" class="" matInput placeholder="Content"></textarea>
+  </mat-form-field>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="mat-raised-button" (click)="close()">Close</button>
+  <button class="mat-raised-button mat-primary" (click)="save()">Save</button>
+</mat-dialog-actions>

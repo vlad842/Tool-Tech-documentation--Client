@@ -15,11 +15,16 @@ import {
   MatListModule,
   MatExpansionModule,
   MatButtonToggleModule,
-  MatTableModule
+  MatTableModule,
+  MatChipsModule,
+  MatAutocompleteModule,
+  MatDialogModule,
+  MatStepperModule
 } from '@angular/material';
 import { ManagementComponent } from './management/management.component';
 import { UserManagementComponent } from './management/user-management/user-management.component';
 import { ToolManagementComponent } from './management/tool-management/tool-management.component';
+import { CommentDialogComponent } from './dashboard/comment-dialog/comment-dialog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -36,14 +41,19 @@ import { ToolManagementComponent } from './management/tool-management/tool-manag
     MatListModule,
     MatExpansionModule,
     MatButtonToggleModule,
-    MatTableModule
+    MatTableModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatDialogModule,
+    MatStepperModule
   ],
   declarations: [
     DashboardComponent,
     ReportComponent,
     ManagementComponent,
     UserManagementComponent,
-    ToolManagementComponent
+    ToolManagementComponent,
+    CommentDialogComponent
   ],
   exports:[
     DashboardComponent,
@@ -51,7 +61,8 @@ import { ToolManagementComponent } from './management/tool-management/tool-manag
     ManagementComponent,
     UserManagementComponent,
     ToolManagementComponent
-  ]
+  ],
+  entryComponents: [CommentDialogComponent]
 })
 
 export class UserLayoutModule {}
