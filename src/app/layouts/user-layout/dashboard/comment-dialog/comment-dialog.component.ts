@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA, MatChipInputEvent, MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 export interface Tag {
   name: string;
@@ -26,7 +27,8 @@ export class CommentDialogComponent implements OnInit {
   allTags: Tag[] = [];
   record_id;
   commentTextArea:FormControl;
-
+  addOnBlur = true;
+  separatorKeysCodes: number[] = [ENTER, COMMA];
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   
