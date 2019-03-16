@@ -28,19 +28,33 @@
   <mat-expansion-panel *ngFor="let record of records">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{record.serial_number}} / {{record.chamber_num}} - {{record.chamber_kind}}
+        <span class="dot dot-{{record.status === 'In progress' ? 'red' : record.status === 'Resolved' ? 'green' : record.status === 'Resolved and follow up' ? 'yellow' : '' }}" ></span>
+        {{record.headline}}
       </mat-panel-title>
-      <mat-panel-description>
-        {{record.user_name}} / {{record.date | date:'medium' }}
+      <mat-panel-description style="flex-grow: 0 !important;">
+        <div style='margin-right: 20px;'>
+            {{record.serial_number}} / {{record.chamber_num}} - {{record.chamber_kind}}
+        </div>
+        <div>
+          {{record.user_name}} / {{record.date | date:'medium' }}
+        </div>
       </mat-panel-description>
     </mat-expansion-panel-header>
-
+    <div style="font-family: Lucida Console; text-align:right;         
+    font-size: 17px;
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.54);
+    margin: -14px 21px 6px;">{{record.event}}</div>
     <textarea class="descriptionTextArea" rows=5>{{record.description}}</textarea>
 
     <mat-accordion>
-        <button style="position:relative; top:-34px;" (click)="addComment(record._id)" mat-fab color="primary"><mat-icon aria-label="Add comment">add_comment</mat-icon></button>
+        <button style="position:relative; top:16px; margin: -16px 20px 6px;" (click)="addComment(record._id)" mat-fab color="primary"><mat-icon aria-label="Add comment">add_comment</mat-icon></button>
 
-        <mat-expansion-panel style="position:relative; top:-20px; background-color:#eee;">
+        <mat-expansion-panel style="position: relative;
+        top: -44px;
+        right: -92px;
+        background-color: #eee;
+        width: 87%;">
           <mat-expansion-panel-header style="background-color:#eee;">
             <mat-panel-title style="background-color:#eee;">
               All Comments ({{record.comments.length}})

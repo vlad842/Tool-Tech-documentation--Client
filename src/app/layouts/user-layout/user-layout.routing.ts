@@ -5,6 +5,7 @@ import { ReportComponent } from './report/report.component';
 import { ToolManagementComponent } from './management/tool-management/tool-management.component';
 import { UserManagementComponent } from './management/user-management/user-management.component';
 import { AdminGuard } from '../../layouts/authentication-layout/admin.guard';
+import { TagManagementComponent } from './management/tag-management/tag-management.component';
 
 export const UserLayoutRoutes: Routes = [
 
@@ -20,6 +21,11 @@ export const UserLayoutRoutes: Routes = [
         component: ToolManagementComponent,
         canActivate: [AdminGuard]
     },
+    {
+        path: 'management/tags',
+        component: TagManagementComponent,
+        canActivate: [AdminGuard]
+    }
 /*    {
         path: 'management',
         component: ManagementComponent,

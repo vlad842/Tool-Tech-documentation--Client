@@ -21,9 +21,11 @@ import {
   MatDialogModule,
   MatStepperModule
 } from '@angular/material';
+import { ColorPickerModule } from 'ngx-color-picker';
 import { ManagementComponent } from './management/management.component';
 import { UserManagementComponent } from './management/user-management/user-management.component';
 import { ToolManagementComponent } from './management/tool-management/tool-management.component';
+import { TagManagementComponent } from './management/tag-management/tag-management.component';
 import { CommentDialogComponent } from './dashboard/comment-dialog/comment-dialog.component';
 @NgModule({
   imports: [
@@ -45,7 +47,8 @@ import { CommentDialogComponent } from './dashboard/comment-dialog/comment-dialo
     MatChipsModule,
     MatAutocompleteModule,
     MatDialogModule,
-    MatStepperModule
+    MatStepperModule,
+    ColorPickerModule
   ],
   declarations: [
     DashboardComponent,
@@ -53,6 +56,7 @@ import { CommentDialogComponent } from './dashboard/comment-dialog/comment-dialo
     ManagementComponent,
     UserManagementComponent,
     ToolManagementComponent,
+    TagManagementComponent,
     CommentDialogComponent
   ],
   exports:[
@@ -60,7 +64,8 @@ import { CommentDialogComponent } from './dashboard/comment-dialog/comment-dialo
     ReportComponent,
     ManagementComponent,
     UserManagementComponent,
-    ToolManagementComponent
+    ToolManagementComponent,
+    TagManagementComponent
   ],
   entryComponents: [CommentDialogComponent]
 })

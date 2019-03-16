@@ -23,7 +23,11 @@ export interface Tag {
 export class ReportComponent implements OnInit {
   reportForm :  FormGroup;
   reportTextArea:FormControl;
+  reportHeadline:FormControl;
+
   selectedStatus:string = "In progress";
+  selectedEvent:string = "other";
+  
   tools = [];
   chambers = [];
   selectedTool;
@@ -39,13 +43,19 @@ export class ReportComponent implements OnInit {
   selectedTags: Tag[] = [];
   allTags: Tag[] = [];
 
+  events_enum = ['Monitors out of control', 'Inline out of control', 'Tool error',
+  'E3 abort/warnings', 'Sub Fab/ISYS', 'Communication', 'Eqp Upgrade', 'other']
+
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   onSelectedStatusChanged(status){
     this.selectedStatus = status;
   }
-  
+
+  onSelectedEventChanged(status){
+    this.selectedEvent = status;
+  }
   
   constructor(private recordesService:RecordesService,
               private toolsService:ToolsService,
@@ -56,8 +66,10 @@ export class ReportComponent implements OnInit {
   ngOnInit() {
 
     this.reportTextArea = new FormControl('',[]);
+    this.reportHeadline = new FormControl('',[]);
     this.reportForm = new FormGroup({
-      reportTextArea: this.reportTextArea
+      reportTextArea: this.reportTextArea,
+      reportHeadline: this.reportHeadline
     },[Validators.required])
 
 
@@ -102,7 +114,7 @@ export class ReportComponent implements OnInit {
   onSubmitReport(){
     const tool_id = (this.tools.find((elem) => elem.serialNumber === this.selectedTool))._id;
     const tags = this.selectedTags.map((tag)=> tag._id);
-    this.recordesService.addRecord(tool_id,this.selectedChamber,this.reportTextArea.value,tags,this.selectedStatus)
+    this.recordesService.addRecord(tool_id,this.selectedChamber,this.reportHeadline.value,this.reportTextArea.value,tags,this.selectedStatus,this.selectedEvent)
     .pipe(first())
       .subscribe(
         data => {

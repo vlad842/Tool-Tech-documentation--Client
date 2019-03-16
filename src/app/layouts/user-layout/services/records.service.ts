@@ -18,10 +18,10 @@ export class RecordesService {
 
     constructor(private http: HttpClient) { }
 
-    addRecord(tool_id, chamber_num, description,tags,status) {
+    addRecord(tool_id, chamber_num,headline, description,tags,status,event) {
         console.log("tags",tags);
         console.log("status",status)
-        return this.http.post<any>(`${this.apiUrl}/records/addRecord`, { headline:"123",event:"other",tool_id, chamber_num, description,tags,status})
+        return this.http.post<any>(`${this.apiUrl}/records/addRecord`, { headline,event,tool_id, chamber_num, description,tags,status})
             .pipe(map(data => {
                 return data;
             }));

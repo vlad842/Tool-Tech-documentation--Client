@@ -1,7 +1,27 @@
 .descriptionTextArea{
-    width: 100%;
+    width: 94%;
     border-width: 0;
     border-bottom: 1px solid gainsboro;
     margin-bottom: 44px;
     overflow: auto; 
+    margin-left: 31px;
+}
+
+.dot {
+    height: 20px;
+    width: 20px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 16px;
+  }
+
+.dot-red{
+   background-color: red;
+}
+.dot-green{
+   background-color: green;
+}
+.dot-yellow{
+  background-color: yellow;
 }

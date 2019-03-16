@@ -14,7 +14,7 @@ import { FormControl } from '@angular/forms';
 })
 export class DashboardComponent implements OnInit {
   tags = [];
-  records:string[]  = [];
+  records:any[]  = [];
   tools             = [];
   chambers:string[] = [];
   selectedChamber:string;
@@ -67,6 +67,10 @@ export class DashboardComponent implements OnInit {
     .subscribe(
       data => {
         console.log(data);
+        data.forEach(record => {
+          record.status_color = record.status === 'In progress' ? 'red' : record.status === 'Resolved' ? 'green' : record.status === 'Resolved and follow up' ? 'yellow' : '';
+          
+        });
         this.records=data;
       },
       error => {
@@ -144,6 +148,8 @@ export class DashboardComponent implements OnInit {
           .subscribe(
             res => {
               console.log(res);
+              this.fillRecords();
+
             },
             error => {
             });

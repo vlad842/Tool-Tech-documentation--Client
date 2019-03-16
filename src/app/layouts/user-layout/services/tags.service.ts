@@ -12,6 +12,14 @@ export class TagsService {
 
     constructor(private http: HttpClient) { }
 
+
+    addNewTag(name,color) {
+        return this.http.post<any>(`${this.apiUrl}/tags/add`, { name, color })
+            .pipe(map(data => {
+                return data;
+            }));
+    }
+
     addTag(record_id, tag_ids, content) {
         return this.http.post<any>(`${this.apiUrl}/comments/addComment`, { record_id, tag_ids , content })
             .pipe(map(data => {
@@ -27,5 +35,11 @@ export class TagsService {
             }));
     }
 
+    deleteTag(tag_id){
+        return this.http.delete<any>(`${this.apiUrl}/tags/remove/${tag_id}`)
+        .pipe(map(data => {
+            return data;
+        })); 
+    }
 
 }
