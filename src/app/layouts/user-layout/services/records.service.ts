@@ -20,7 +20,8 @@ export class RecordesService {
 
     addRecord(tool_id, chamber_num,headline, description,tags,status,event) {
         console.log("tags",tags);
-        console.log("status",status)
+        console.log("status",status);
+        console.log({tool_id, chamber_num,headline, description,tags,status,event});
         return this.http.post<any>(`${this.apiUrl}/records/addRecord`, { headline,event,tool_id, chamber_num, description,tags,status})
             .pipe(map(data => {
                 return data;
