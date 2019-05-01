@@ -75,7 +75,7 @@
 
     </div>
     <div class="optionsBox col-md-4">
-      <div>Event</div>
+      <div>ISSUE TYPE</div>
       <mat-button-toggle-group appearance="standard" vertical="true" name="fontStyle" aria-label="Font Style" value="other">
         <mat-button-toggle *ngFor='let event of events_enum' value={{event}} (change)="onSelectedEventChanged(event)">{{event}}</mat-button-toggle>
       </mat-button-toggle-group>

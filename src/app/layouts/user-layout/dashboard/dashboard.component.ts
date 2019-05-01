@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
   chambers:string[] = [];
   selectedChamber:string;
   selectedTool:string;
+  selectedTag:string;
 
   constructor( private dialog: MatDialog,
                private recordesService:RecordesService,
@@ -27,16 +28,18 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
 
-      this.selectedChamber = "allChambers";
-      this.selectedTool = "allTools";
+      this.selectedChamber = "*";
+      this.selectedTool = "*";
+      this.selectedTag = "*";
 
       this.fillTools();
 
       this.fillChambers(this.selectedTool);
   
+      this.fillTags();
+
       this.fillRecords();
 
-      this.fillTags();
 
   }
 
@@ -45,12 +48,8 @@ export class DashboardComponent implements OnInit {
     .pipe(first())
     .subscribe(
       data => {
-        console.log(data);
+        console.log('this.tags',data);
         this.tags = data;
-
-        /*this.filteredTags = this.tagsFormControl.valueChanges.pipe(
-          startWith(null),
-          map((tag: Tag | null) => tag ? this._filter(tag) : this.allTags.slice()));*/
       },
       error => {
       });
@@ -58,11 +57,12 @@ export class DashboardComponent implements OnInit {
 
   private fillRecords()
   {
-    const tool_id = this.selectedTool !== 'allTools' ? this.selectedTool: undefined;
-    const chamber_number = this.selectedChamber !== 'allChambers' ? this.selectedChamber : undefined;
+    const tool_id = this.selectedTool !== '*' ? this.selectedTool: '*';
+    const chamber_number = this.selectedChamber !== '*' ? this.selectedChamber : '*';
+    const tag_id = this.selectedTag !== '*' ? this.selectedTag : '*';
 
 
-    this.recordesService.getRecords(tool_id,chamber_number)
+    this.recordesService.getRecords(tag_id,tool_id,chamber_number)
     .pipe(first())
     .subscribe(
       data => {
@@ -91,7 +91,9 @@ export class DashboardComponent implements OnInit {
 
   private fillChambers(tool_id?:string)
   {
-    if(tool_id == 'allTools')
+    console.log(tool_id);
+    console.log(this.tools);
+    if(tool_id == '*')
     {
       this.chambers=[];
     }
@@ -104,21 +106,27 @@ export class DashboardComponent implements OnInit {
   toolChanged(e)
   {
     this.fillChambers(this.selectedTool);
-    this.selectedChamber = 'allChambers';
+    this.selectedChamber = '*';
     this.fillRecords();
 
   }
 
   chamberChanged(e)
   {
-    if(this.selectedTool == 'allTools')
+    if(this.selectedTool == '*')
     {
-      this.selectedChamber == 'allChambers';
+      this.selectedChamber == '*';
     }
     else
     {
       this.fillRecords();
     }
+
+  }
+
+  tagChanged(e)
+  {
+    this.fillRecords();
 
   }
 

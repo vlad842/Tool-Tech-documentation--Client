@@ -28,17 +28,9 @@ export class RecordesService {
             }));
     }
 
-    getRecords(tool_id?: string, chamber_num?: string) {
-        let url = `${this.apiUrl}/records`;
-        if (tool_id) {
-            url = url + `/${tool_id}`;
-            if (chamber_num) {
-                url = url + `/${chamber_num}`;
-
-
-            }
-        }
-
+    getRecords(tag_id:string, tool_id:string, chamber_num:string) {
+        const url = `${this.apiUrl}/records/${tag_id}/${tool_id}/${chamber_num}`;
+        console.log('url',url);
         return this.http.get<any>(url)
             .pipe(map(data => {
                 return data;
