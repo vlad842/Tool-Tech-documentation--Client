@@ -34,6 +34,23 @@
     </mat-form-field>
   </div>
 
+  <div class="col-md-3">
+    <mat-form-field class="chambers-dropdown">
+      <mat-select (selectionChange)="statusChanged($event)" placeholder="Status" [(value)]="selectedStatus">
+        <mat-option value="*">All Statuses</mat-option>
+        <mat-option value="resolved">
+          Resolved
+        </mat-option>
+        <mat-option value="Resolved and follow up">
+          Resolved and follow up
+        </mat-option>
+        <mat-option value="In progress">
+          In progress
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
 </div>
 
 

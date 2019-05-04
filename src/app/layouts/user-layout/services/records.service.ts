@@ -28,8 +28,8 @@ export class RecordesService {
             }));
     }
 
-    getRecords(tag_id:string, tool_id:string, chamber_num:string) {
-        const url = `${this.apiUrl}/records/${tag_id}/${tool_id}/${chamber_num}`;
+    getRecords(tag_id:string, tool_id:string, chamber_num:string,status:string) {
+        const url = `${this.apiUrl}/records/${tag_id}/${tool_id}/${chamber_num}/${status}`;
         console.log('url',url);
         return this.http.get<any>(url)
             .pipe(map(data => {

@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
   chambers:string[] = [];
   selectedChamber:string;
   selectedTool:string;
+  selectedStatus:string;
   selectedTag:string;
 
   constructor( private dialog: MatDialog,
@@ -31,6 +32,7 @@ export class DashboardComponent implements OnInit {
       this.selectedChamber = "*";
       this.selectedTool = "*";
       this.selectedTag = "*";
+      this.selectedStatus = "*";
 
       this.fillTools();
 
@@ -48,7 +50,6 @@ export class DashboardComponent implements OnInit {
     .pipe(first())
     .subscribe(
       data => {
-        console.log('this.tags',data);
         this.tags = data;
       },
       error => {
@@ -60,13 +61,12 @@ export class DashboardComponent implements OnInit {
     const tool_id = this.selectedTool !== '*' ? this.selectedTool: '*';
     const chamber_number = this.selectedChamber !== '*' ? this.selectedChamber : '*';
     const tag_id = this.selectedTag !== '*' ? this.selectedTag : '*';
+    const status = this.selectedStatus !== '*' ? this.selectedStatus : '*';
 
-
-    this.recordesService.getRecords(tag_id,tool_id,chamber_number)
+    this.recordesService.getRecords(tag_id,tool_id,chamber_number,status)
     .pipe(first())
     .subscribe(
       data => {
-        console.log(data);
         data.forEach(record => {
           record.status_color = record.status === 'In progress' ? 'red' : record.status === 'Resolved' ? 'green' : record.status === 'Resolved and follow up' ? 'yellow' : '';
           
@@ -91,8 +91,6 @@ export class DashboardComponent implements OnInit {
 
   private fillChambers(tool_id?:string)
   {
-    console.log(tool_id);
-    console.log(this.tools);
     if(tool_id == '*')
     {
       this.chambers=[];
@@ -109,6 +107,11 @@ export class DashboardComponent implements OnInit {
     this.selectedChamber = '*';
     this.fillRecords();
 
+  }
+
+  statusChanged(e)
+  {
+    this.fillRecords();
   }
 
   chamberChanged(e)
@@ -155,9 +158,7 @@ export class DashboardComponent implements OnInit {
           .pipe(first())
           .subscribe(
             res => {
-              console.log(res);
               this.fillRecords();
-
             },
             error => {
             });
